@@ -5,15 +5,15 @@ export const Form = () => {
   const [svoris, setSvoris] = useState(0);
   const [rezultatas, setRezultatas] = useState(null);
 
-  const handleKMI = (е) => {
-    e.preventDefault();
-  };
-
   return (
     <div>
+      <h1> KŪNO MASĖS INDEKSO SKAIČIAVIMAS</h1>
       <form>
-        <label htmlFor="ugis">Ugis metrais</label>
+        <label style={{ fontSize: "18px" }} htmlFor="ugis">
+          Ugis metrais
+        </label>
         <input
+          style={{ marginLeft: "10px" }}
           id="ugis"
           type="number"
           input
@@ -22,8 +22,14 @@ export const Form = () => {
           value={ugis}
           onChange={(e) => setUgis(e.target.value)}
         ></input>
-        <label htmlFor="svoris">Svoris kilogramais</label>
+        <label
+          style={{ marginLeft: "10px", fontSize: "18px" }}
+          htmlFor="svoris"
+        >
+          Svoris kilogramais
+        </label>
         <input
+          style={{ marginLeft: "10px" }}
           id="svoris"
           type="number"
           input
@@ -33,6 +39,7 @@ export const Form = () => {
           onChange={(e) => setSvoris(e.target.value)}
         ></input>
         <button
+          style={{ marginLeft: "10px" }}
           className=""
           onClick={(e) => {
             e.preventDefault();
@@ -46,20 +53,33 @@ export const Form = () => {
         <div className="rezultatas">
           {rezultatas && (
             <>
+              <p style={{ fontSize: "18px" }}>Jūs sveriate: {svoris} kg</p>
+              <p style={{ fontSize: "18px" }}>Jūsų ūgis: {ugis} m</p>
+              <p></p>
               <p
                 style={
-                  +rezultatas < 18.7 ? { color: "red" } : { color: "yellow" }
+                  +rezultatas < 18.5
+                    ? { color: "red", fontSize: "18px" }
+                    : +rezultatas > 18.5 && +rezultatas < 25
+                    ? { color: "green", fontSize: "18px" }
+                    : { color: "orange", fontSize: "18px" }
                 }
-                // style={
-                //   +rezultatas < 18.5
-                //     ? "color:yellow;"
-                //     : +rezultatas > 18.5 && +rezultatas < 25
-                //     ? "color:green;"
-                //     : "color:orange;"
-                // }
               >
-                {rezultatas}
+                Jūsų kūno masės indeksas: {rezultatas} KMI
               </p>
+              {+rezultatas < 18.5 ? (
+                <p style={{ color: "red", fontSize: "25px" }}>
+                  Susirūpinkite, Jūsų svoris nepakankamas!!!
+                </p>
+              ) : +rezultatas > 18.5 && +rezultatas < 25 ? (
+                <p style={{ color: "green", fontSize: "25px" }}>
+                  Sveikiniame! Jūsų svoris normalus.
+                </p>
+              ) : (
+                <p style={{ color: "orange", fontSize: "25px" }}>
+                  Susirūpinkite! Jūsų svoris per didelis.
+                </p>
+              )}
               <button
                 onClick={() => {
                   setRezultatas(null);
